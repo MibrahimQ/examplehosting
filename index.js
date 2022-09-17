@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
+// import fetch from 'node-fetch';
 //const port = 3000
+const fetch = require('node-fetch');
 
 const path=require('path')
 const bodyparser=require('body-parser')
@@ -19,6 +21,16 @@ res.send("<h1>Data recieved</h1>"+"<hr>"+req.query.name+"<hr>"+req.query.email+"
 app.post('/form-submit', (req, res) => {
   res.send("<h1>Data recieved</h1>"+"<hr>"+req.body.name+'<hr> '+req.body.email+"<hr><br><a href=\"/\">Go back</a>")
   })
+  
+app.post('/apifetch', (req, res) => {
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
+  .then(json =>{
+
+  console.log(json)
+  res.send(json)
+})
+    })
   
 
 app.get('/about', (req, res) => {
